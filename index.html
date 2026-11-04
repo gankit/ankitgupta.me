@@ -183,7 +183,7 @@ footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px;
 
       <div class="grid three">
         <a class="card" href="#essays"><span class="label">Read</span><h3>Essays</h3><p>What I learned running a company, and what I'm learning at home.</p><span class="go" data-essay-count>Browse essays →</span></a>
-        <a class="card" href="#interests"><span class="label">Explore</span><h3>Interests</h3><p>Topics I'm spending time on, starting with parenting.</p><span class="go">See interests →</span></a>
+        <a class="card" href="#interests"><span class="label">Explore</span><h3>Interests</h3><p>Topics I'm spending time on.</p><span class="go">See interests →</span></a>
         <a class="card" href="#about"><span class="label">Press kit</span><h3>About</h3><p>Bios and photos for event organizers and writers.</p><span class="go">Get bios and photos →</span></a>
       </div>
 
@@ -231,8 +231,8 @@ footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px;
         <p class="lede">Topics I'm spending time on. Each one collects my essays and projects in that area.</p>
       </div>
       <div class="grid">
-        <a class="card" href="#parenting"><span class="chip">Open</span><h3>Parenting</h3><p>Fellow Parent, plus essays on books and food for young kids.</p><span class="go">Go to Parenting →</span></a>
-        <div class="card soon"><span class="chip quiet">Coming soon</span><h3>More interests</h3><p>More topics to come.</p></div>
+        <a class="card" href="#parenting"><span class="label">Interest</span><h3>Parenting</h3><p>What I'm learning as a full-time dad, and Fellow Parent, a free quiz that helps parents understand their style.</p><span class="go">Go to Parenting →</span></a>
+        <a class="card" href="#philanthropy"><span class="label">Interest</span><h3>Philanthropy</h3><p>Finding sustainable ways to make social impact at scale, through the Kartavya Collective.</p><span class="go">Go to Philanthropy →</span></a>
       </div>
     </section>
 
@@ -241,26 +241,31 @@ footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px;
       <div class="page-head">
         <a class="back" href="#interests">← All interests</a>
         <h1>Parenting</h1>
-        <p class="lede">What I'm reading, cooking and working on as a parent.</p>
+        <p class="lede">What I'm learning and building as a full-time dad.</p>
       </div>
-      <div class="grid three">
-        <div class="card col">
+      <div class="grid">
+        <a class="card" href="https://fellowparent.org/" target="_blank" rel="noopener">
           <span class="label">Project</span>
           <h3>Fellow Parent</h3>
-          <p>[Placeholder: two sentences on what Fellow Parent is and who it's for.]</p>
-          <span class="go">[Link to Fellow Parent]</span>
-        </div>
-        <div class="card col">
-          <span class="label">Essays</span>
-          <h3>Books</h3>
-          <p>Books I've read and what stayed with me.</p>
-          <div class="list" data-list="books"></div>
-        </div>
-        <div class="card col">
-          <span class="label">Essays</span>
-          <h3>Food</h3>
-          <p>Recipes and cooking for young kids.</p>
-          <div class="list" data-list="food"></div>
+          <p>A free, five-minute quiz that shows the blend of 12 parenting philosophies you naturally draw from, and what may shift in hard moments. No account needed.</p>
+          <span class="go">Visit fellowparent.org ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- INTEREST: PHILANTHROPY -->
+    <section class="view" data-view="philanthropy" hidden>
+      <div class="page-head">
+        <a class="back" href="#interests">← All interests</a>
+        <h1>Philanthropy</h1>
+        <p class="lede">I'm looking for sustainable ways to make social impact at scale.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="label">Project</span>
+          <h3>Kartavya Collective</h3>
+          <p>[Placeholder: two sentences on what Kartavya Collective does and who it works with.]</p>
+          <span class="go">[Link to Kartavya Collective]</span>
         </div>
       </div>
     </section>
@@ -338,7 +343,7 @@ footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px;
   // Essays page filter
   const allEl = document.querySelector('[data-list="all"]');
   const filtersEl = document.querySelector("[data-filters]");
-  const opts = [["all", "All", ESSAYS.length], ...Object.entries(SECTIONS).map(([k, n]) => [k, n, ESSAYS.filter(e => e.section === k).length])];
+  const opts = [["all", "All", ESSAYS.length], ...Object.entries(SECTIONS).map(([k, n]) => [k, n, ESSAYS.filter(e => e.section === k).length]).filter(o => o[2] > 0)];
   filtersEl.innerHTML = opts.map(([k, n, c]) => `<button type="button" id="filter-${k}" data-filter="${k}">${n}<span class="count">${c}</span></button>`).join("");
   function setFilter(k) {
     filtersEl.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === k)));
@@ -349,7 +354,7 @@ footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px;
 
   // Hash routing between pages
   const views = [...document.querySelectorAll("[data-view]")];
-  const navFor = { parenting: "interests" };
+  const navFor = { parenting: "interests", philanthropy: "interests" };
   ESSAYS.forEach(e => { navFor[e.slug] = "essays"; });
   function route() {
     const name = (location.hash || "#home").slice(1);

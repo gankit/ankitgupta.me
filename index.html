@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ankit Gupta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ankit Gupta: founder of Bicycle Health, now a full-time dad figuring out what's next. Essays, interests and a press kit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: sticky top bar, then each page is a short header plus a grid of tinted cards, so every block reads as one clickable unit. Essays themselves sit in a narrow reading column. */
+:root {
+  --paper: #fbfaf7;
+  --card: #f2efe8;
+  --card-hover: #ebe7dd;
+  --ink: #26231f;
+  --muted: #6f6a62;
+  --line: #e2ddd3;
+  --accent: #3d5f52;
+  --accent-soft: #dfe8e3;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1a1816; --card: #24211e; --card-hover: #2c2925; --ink: #ebe6de; --muted: #a39d93;
+    --line: #35312c; --accent: #8fbfa9; --accent-soft: #263630; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1a1816; --card: #24211e; --card-hover: #2c2925; --ink: #ebe6de; --muted: #a39d93;
+  --line: #35312c; --accent: #8fbfa9; --accent-soft: #263630; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 1.125rem; line-height: 1.55;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-weight: 500; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.5rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.2rem; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 60rem; margin: 0 auto; }
+.label { font-family: var(--ui); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.2rem; color: var(--muted); max-width: 38rem; }
+
+/* sticky top bar */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--paper); border-bottom: 1px solid var(--line); }
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; }
+.brand { font-size: 1.2rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+nav { display: flex; flex-wrap: wrap; gap: 4px; font-family: var(--ui); font-size: 0.95rem; }
+nav a { color: var(--ink); text-decoration: none; padding: 6px 12px; border-radius: 999px; }
+nav a:hover { background: var(--card); }
+nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+main .wrap { padding-block: 28px 120px; }
+.view { display: flex; flex-direction: column; gap: 28px; }
+.page-head { display: flex; flex-direction: column; gap: 8px; }
+.back { font-family: var(--ui); font-size: 0.9rem; text-decoration: none; }
+
+/* cards */
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.card { background: var(--card); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; color: var(--ink); text-decoration: none; min-width: 0; }
+a.card:hover { background: var(--card-hover); }
+a.card:hover h3 { color: var(--accent); }
+.card p { color: var(--muted); font-size: 1rem; }
+.card .go { margin-top: auto; padding-top: 8px; font-family: var(--ui); font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+.card.soon { background: transparent; border: 1px dashed var(--line); }
+.chip { align-self: flex-start; font-family: var(--ui); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 999px; }
+.chip.quiet { color: var(--muted); background: transparent; border: 1px solid var(--line); }
+.meta { font-family: var(--ui); font-size: 0.8rem; color: var(--muted); }
+.empty { font-family: var(--ui); font-size: 0.9rem; color: var(--muted); padding: 12px 0 4px; }
+
+/* home */
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+@media (max-width: 720px) { .hero { grid-template-columns: 1fr; } }
+.hero-text { display: flex; flex-direction: column; gap: 12px; }
+.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; }
+.status { background: var(--card); border-radius: 10px; padding: 6px 20px; }
+.status-row { display: grid; grid-template-columns: 4rem 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.status-row:first-child { border-top: 0; }
+.status-row p { font-size: 1.05rem; }
+.status-row .sub { display: block; font-size: 0.92rem; color: var(--muted); }
+.status-row.now p { font-weight: 600; }
+.status-row.now .label { color: var(--accent); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.section-head a { font-family: var(--ui); font-size: 0.9rem; text-decoration: none; }
+
+/* essays filter */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font-family: var(--ui); font-size: 0.9rem; color: var(--ink); background: var(--card); border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.filters button:hover { background: var(--card-hover); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+.filters .count { opacity: 0.7; margin-left: 4px; }
+
+/* essay reading view */
+article.essay { max-width: 40rem; display: flex; flex-direction: column; gap: 20px; font-size: 1.2rem; line-height: 1.65; }
+article.essay header { display: flex; flex-direction: column; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.pull { font-size: 1.35rem; line-height: 1.35; font-style: italic; border-left: 3px solid var(--accent); padding-left: 18px; }
+.endnote { background: var(--card); border-radius: 10px; padding: 16px 20px; font-size: 1rem; color: var(--muted); }
+
+/* parenting */
+.col { display: flex; flex-direction: column; gap: 10px; }
+.col .list { display: flex; flex-direction: column; gap: 8px; }
+.col .list a { display: block; padding: 10px 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.col .list a:hover { color: var(--accent); }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+.gallery { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.photo { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.photo img { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 25%; border-radius: 8px; background: var(--card); }
+.photo .frame { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 8px; border: 1.5px dashed var(--line); background: var(--card); display: grid; place-items: center; color: var(--muted); font-family: var(--ui); font-size: 0.8rem; text-align: center; padding: 8px; }
+.photo figcaption { font-family: var(--ui); font-size: 0.82rem; color: var(--muted); }
+.bios { display: flex; flex-direction: column; gap: 12px; }
+.bio-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.bio p { color: var(--ink); }
+.copy { font-family: var(--ui); font-size: 0.8rem; font-weight: 600; color: var(--accent); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; flex: none; }
+.copy:hover { border-color: var(--accent); }
+
+/* persistent LinkedIn button */
+.follow {
+  position: fixed; z-index: 20;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: var(--paper); text-decoration: none;
+  font-family: var(--ui); font-weight: 600; font-size: 0.9rem;
+  padding: 10px 16px 10px 12px; border-radius: 999px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15);
+}
+.follow:hover { filter: brightness(1.08); }
+.follow svg { width: 18px; height: 18px; flex: none; }
+.follow .bg { fill: var(--paper); }
+.follow .fg { fill: var(--accent); }
+
+footer.site .wrap { border-top: 1px solid var(--line); padding-block: 20px 32px; color: var(--muted); font-family: var(--ui); font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header class="topbar gutter">
+  <div class="wrap">
+    <a class="brand" href="#home">Ankit Gupta</a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#essays" data-nav="essays">Essays</a>
+      <a href="#interests" data-nav="interests">Interests</a>
+      <a href="#about" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="gutter">
+  <div class="wrap">
+
+    <!-- HOME -->
+    <section class="view" data-view="home">
+      <div class="hero">
+        <div class="hero-text">
+          <img class="avatar" src="images/avatar.jpg" alt="Ankit Gupta" width="88" height="88">
+          <h1>Hi, I'm Ankit.</h1>
+          <p class="lede">I ran Bicycle Health full time for years. Now I'm a full-time dad and working out what comes next. I write about both here.</p>
+        </div>
+        <div class="status" role="list" aria-label="Where I am">
+          <div class="status-row" role="listitem"><span class="label">Then</span><p>Founder, Bicycle Health<span class="sub">Treatment for opioid use disorder</span></p></div>
+          <div class="status-row now" role="listitem"><span class="label">Now</span><p>Full-time dad<span class="sub">At home with my kids</span></p></div>
+          <div class="status-row" role="listitem"><span class="label">Next</span><p>Still figuring it out<span class="sub">Updates on LinkedIn</span></p></div>
+        </div>
+      </div>
+
+      <div class="grid three">
+        <a class="card" href="#essays"><span class="label">Read</span><h3>Essays</h3><p>What I learned running a company, and what I'm learning at home.</p><span class="go" data-essay-count>Browse essays →</span></a>
+        <a class="card" href="#interests"><span class="label">Explore</span><h3>Interests</h3><p>Topics I'm spending time on, starting with parenting.</p><span class="go">See interests →</span></a>
+        <a class="card" href="#about"><span class="label">Press kit</span><h3>About</h3><p>Bios and photos for event organizers and writers.</p><span class="go">Get bios and photos →</span></a>
+      </div>
+
+      <div class="col">
+        <div class="section-head"><h2>Latest essays</h2><a href="#essays">All essays →</a></div>
+        <div class="grid" data-list="latest"></div>
+      </div>
+    </section>
+
+    <!-- ESSAYS -->
+    <section class="view" data-view="essays" hidden>
+      <div class="page-head">
+        <h1>Essays</h1>
+        <p class="lede">Everything I write lives here. Pick a section to narrow it down.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by section" data-filters></div>
+      <div class="grid" data-list="all"></div>
+    </section>
+
+    <!-- ESSAY: PROBLEM SOLVING -->
+    <section class="view" data-view="problem-solving" hidden>
+      <article class="essay">
+        <header>
+          <a class="back" href="#essays">← All essays</a>
+          <span class="chip">Work and life</span>
+          <h1>Problem Solving</h1>
+          <span class="meta">By Ankit Gupta · 4 min read</span>
+        </header>
+        <p>There are people who really enjoy problem solving. Like, really really enjoy it. Give them a problem and they will solve it. They relish talking through every possible solution. A personal problem. A professional problem. Someone else's problem. Doesn't matter.</p>
+        <p>You might be this person. Or you might know someone like this. There's often a "fixer" in relationships who is guilty of having this affliction. "If only they'd just listen to me…" is a common refrain. And marriages have ended over it, because one person couldn't help jumping to solutions instead of sitting in the emotional swamp of the problem.</p>
+        <p>One expresses the need for control when solving problems. Being in control makes us feel safe. Not being in control, chaos, and uncertainty provoke anxiety.</p>
+        <p>The irony is that problems almost never involve a single human being. Not the problems that are interesting, or hard, or worth solving anyway. There are problems throughout the day that involve you and only you, and you feel good about solving them: eating, getting where you need to go, making it to a meeting on time, that game you can't stop playing on your phone. But most problems that are technically challenging, like discovering a new technology, or culturally challenging, like selling your product to a customer, require interpersonal problem solving and a together approach.</p>
+        <p class="pull">The feeling of control that comes from problem solving is an illusion.</p>
+        <p>Given that one cannot control another, the act of problem solving makes one feel in control when in reality one is not.</p>
+        <p>The need to feel safe and the need for control are real. One can meet them by being in control of oneself: recognising one's emotions, taking pride in one's growth, feeling grateful for the support one has, and having the confidence that everything works out.</p>
+        <p>Once problem solving stops being an outlet for control, one can simply be in control.</p>
+        <div class="endnote">I share new essays on LinkedIn as I post them. <a href="#" data-linkedin>Follow me there.</a></div>
+      </article>
+    </section>
+
+    <!-- INTERESTS -->
+    <section class="view" data-view="interests" hidden>
+      <div class="page-head">
+        <h1>Interests</h1>
+        <p class="lede">Topics I'm spending time on. Each one collects my essays and projects in that area.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="#parenting"><span class="chip">Open</span><h3>Parenting</h3><p>Fellow Parent, plus essays on books and food for young kids.</p><span class="go">Go to Parenting →</span></a>
+        <div class="card soon"><span class="chip quiet">Coming soon</span><h3>More interests</h3><p>More topics to come.</p></div>
+      </div>
+    </section>
+
+    <!-- INTEREST: PARENTING -->
+    <section class="view" data-view="parenting" hidden>
+      <div class="page-head">
+        <a class="back" href="#interests">← All interests</a>
+        <h1>Parenting</h1>
+        <p class="lede">What I'm reading, cooking and working on as a parent.</p>
+      </div>
+      <div class="grid three">
+        <div class="card col">
+          <span class="label">Project</span>
+          <h3>Fellow Parent</h3>
+          <p>[Placeholder: two sentences on what Fellow Parent is and who it's for.]</p>
+          <span class="go">[Link to Fellow Parent]</span>
+        </div>
+        <div class="card col">
+          <span class="label">Essays</span>
+          <h3>Books</h3>
+          <p>Books I've read and what stayed with me.</p>
+          <div class="list" data-list="books"></div>
+        </div>
+        <div class="card col">
+          <span class="label">Essays</span>
+          <h3>Food</h3>
+          <p>Recipes and cooking for young kids.</p>
+          <div class="list" data-list="food"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / PRESS KIT -->
+    <section class="view" data-view="about" hidden>
+      <div class="page-head">
+        <h1>About</h1>
+        <p class="lede">I founded Bicycle Health and, before that, co-founded Pulse News. These days I'm a full-time dad. Event organizers and writers are welcome to use the bios and photos below as they are.</p>
+      </div>
+      <div class="about">
+        <div class="col">
+          <h2>Bios</h2>
+          <div class="bios">
+            <div class="card bio">
+              <div class="bio-head"><span class="label">Short · 1 sentence</span><button class="copy" type="button" id="copy-short" data-copy="bio-short">Copy</button></div>
+              <p id="bio-short">Ankit Gupta is the founder of Bicycle Health and co-founder of Pulse News, which LinkedIn acquired. He is now a full-time dad, writing about leadership, problem solving and parenting at ankitgupta.me.</p>
+            </div>
+            <div class="card bio">
+              <div class="bio-head"><span class="label">Long · 1 paragraph</span><button class="copy" type="button" id="copy-long" data-copy="bio-long">Copy</button></div>
+              <p id="bio-long">Ankit Gupta is the founder of Bicycle Health, which he led as CEO, using technology to deliver patient-centered treatment for opioid use disorder at scale. Before Bicycle Health, he co-founded Pulse News and served as its CTO. Pulse grew to more than 30 million users, got a shoutout from Steve Jobs, and was acquired by LinkedIn, where it became the LinkedIn newsfeed. Ankit also started Docs and Hackers, a nonprofit that bridges technology and healthcare. He holds a bachelor's in computer science from IIT Bombay and a master's in computer science from Stanford, where he specialized in machine learning. He recently stepped back from running Bicycle Health full time to be a full-time dad, and writes about what he learned as a founder and what he's learning at home. He enjoys a good cup of coffee, a hike, and a good brew, ideally in that order.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <h2>Photos</h2>
+          <div class="gallery">
+            <figure class="photo"><img src="images/headshot-blazer.jpg" alt="Ankit Gupta in a dark blazer and pink shirt, smiling, on a grey background" width="1000" height="667"><figcaption>Headshot, blazer · <a href="images/headshot-blazer-full.jpg" target="_blank" rel="noopener">Full size</a></figcaption></figure>
+            <figure class="photo"><img src="images/headshot-shirt.jpg" alt="Ankit Gupta in a pink button-down shirt, smiling, on a grey background" width="1000" height="563"><figcaption>Headshot, shirt · <a href="images/headshot-shirt-full.jpg" target="_blank" rel="noopener">Full size</a></figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site gutter">
+  <div class="wrap">
+    <span>© 2026 Ankit Gupta</span>
+    <a href="#" data-linkedin>LinkedIn</a>
+  </div>
+</footer>
+
+<a class="follow" href="#" data-linkedin>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect class="bg" width="24" height="24" rx="5"/><path class="fg" d="M7.1 9.6h-2.6V19h2.6V9.6Zm.2-3A1.5 1.5 0 1 0 4.3 6.6a1.5 1.5 0 0 0 3 0ZM19.5 13.6c0-2.6-1.4-4.2-3.7-4.2-1.3 0-2.2.7-2.6 1.4V9.6h-2.5V19h2.6v-4.9c0-1.3.4-2.3 1.7-2.3 1.2 0 1.6.9 1.6 2.3V19h2.6v-5.4Z"/></svg>
+  <span>Follow on LinkedIn</span>
+</a>
+
+<script>
+  const LINKEDIN_URL = "https://www.linkedin.com/in/ankitgupta00/";
+  document.querySelectorAll("[data-linkedin]").forEach(a => { a.href = LINKEDIN_URL; a.target = "_blank"; a.rel = "noopener"; });
+
+  // Every essay lives here, newest first. "section" sets its chip and filter;
+  // "books" and "food" essays also appear on the Parenting page.
+  const SECTIONS = { general: "Work and life", books: "Books", food: "Food" };
+  const ESSAYS = [
+    { slug: "problem-solving", title: "Problem Solving", section: "general", minutes: 4,
+      summary: "Why the urge to fix things is really an urge to feel in control, and what to do instead." },
+  ];
+  const esc = t => t.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const card = e => `<a class="card" href="#${e.slug}"><span class="chip">${SECTIONS[e.section]}</span><h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p><span class="meta">${e.minutes} min read</span></a>`;
+  const row = e => `<a href="#${e.slug}">${esc(e.title)} <span class="meta">· ${e.minutes} min</span></a>`;
+  const empty = `<p class="empty">No essays here yet.</p>`;
+
+  function render(el, list, fmt) { el.innerHTML = list.length ? list.map(fmt).join("") : empty; }
+  document.querySelectorAll("[data-list]").forEach(el => {
+    const key = el.dataset.list;
+    if (key === "latest") render(el, ESSAYS.slice(0, 3), card);
+    else if (key !== "all") render(el, ESSAYS.filter(e => e.section === key), row);
+  });
+  const countEl = document.querySelector("[data-essay-count]");
+  countEl.textContent = `Browse ${ESSAYS.length} ${ESSAYS.length === 1 ? "essay" : "essays"} →`;
+
+  // Essays page filter
+  const allEl = document.querySelector('[data-list="all"]');
+  const filtersEl = document.querySelector("[data-filters]");
+  const opts = [["all", "All", ESSAYS.length], ...Object.entries(SECTIONS).map(([k, n]) => [k, n, ESSAYS.filter(e => e.section === k).length])];
+  filtersEl.innerHTML = opts.map(([k, n, c]) => `<button type="button" id="filter-${k}" data-filter="${k}">${n}<span class="count">${c}</span></button>`).join("");
+  function setFilter(k) {
+    filtersEl.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === k)));
+    render(allEl, k === "all" ? ESSAYS : ESSAYS.filter(e => e.section === k), card);
+  }
+  filtersEl.addEventListener("click", ev => { const b = ev.target.closest("button"); if (b) setFilter(b.dataset.filter); });
+  setFilter("all");
+
+  // Hash routing between pages
+  const views = [...document.querySelectorAll("[data-view]")];
+  const navFor = { parenting: "interests" };
+  ESSAYS.forEach(e => { navFor[e.slug] = "essays"; });
+  function route() {
+    const name = (location.hash || "#home").slice(1);
+    const target = views.some(v => v.dataset.view === name) ? name : "home";
+    views.forEach(v => { v.hidden = v.dataset.view !== target; });
+    const navName = navFor[target] || target;
+    document.querySelectorAll("[data-nav]").forEach(a => {
+      if (a.dataset.nav === navName) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  route();
+
+  // Copy buttons for bios
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const el = document.getElementById(btn.dataset.copy);
+      const done = () => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy", 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected"; };
+      try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>

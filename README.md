@@ -11,4 +11,4 @@ It's one static page (`index.html`) with no build step. Pages switch by the `#` 
 
 ## Hosting
 
-Served by GitHub Pages from the `main` branch. When the domain is bought, add a `CNAME` file containing `ankitgupta.me` and point the domain's DNS at GitHub Pages.
+Served by GitHub Pages from the `main` branch. The `CNAME` file sets the custom domain to ankitgupta.me. DNS: four A records on the root domain (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a CNAME record for `www` pointing to `gankit.github.io`.
